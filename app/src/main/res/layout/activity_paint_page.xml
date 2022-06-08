@@ -54,6 +54,22 @@
         android:layout_gravity="center"
         android:orientation="vertical">
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/textHEX"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Введите HEX код"/>
+            <Button
+                android:id="@+id/inputButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ввод"
+                android:layout_marginLeft="25dp"/>
+        </LinearLayout>
+        <LinearLayout
             android:id="@+id/topColors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

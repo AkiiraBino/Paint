@@ -2,13 +2,24 @@ package com.example.VladaPaint;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.app.Dialog;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PaintPage extends AppCompatActivity{
     private PaintPageDraw paintPageDraw;
     private float smallBrush, mediumBrush, largeBrush;
     Dialog brushDialog;
+    Button buttonInput;
+    EditText et;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -19,6 +30,26 @@ public class PaintPage extends AppCompatActivity{
         mediumBrush = getResources().getInteger(R.integer.medium_size);
         largeBrush = getResources().getInteger(R.integer.large_size);
         brushDialog = new Dialog(this);
+        et = (EditText) findViewById(R.id.textHEX);
+        buttonInput = (Button) findViewById(R.id.inputButton);
+        buttonInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                String regex = "[a-fA-F[0-9]]{6}";
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(et.getText().toString());
+                if(matcher.matches())
+                {
+                    paintPageDraw.setColor("#" + et.getText().toString());
+                }
+                else
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Неверный HEX код", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        });
     }
 
     public void changePaint(View view)
@@ -56,29 +87,30 @@ public class PaintPage extends AppCompatActivity{
     public void changeBrushSmall(View view)
     {
         paintPageDraw.setBrushSize(smallBrush);
-        closeDialog();
+        closeDialog(view);
     }
 
     public void changeBrushMedium(View view)
     {
         paintPageDraw.setBrushSize(mediumBrush);
-        closeDialog();
+        closeDialog(view);
     }
 
     public void changeBrushLarge(View view)
     {
         paintPageDraw.setBrushSize(largeBrush);
-        closeDialog();
+        closeDialog(view);
     }
 
     public void newList(View view)
     {
         paintPageDraw.newList(view);
-        closeDialog();
+        closeDialog(view);
     }
 
-    public void closeDialog()
+    public void closeDialog(View view)
     {
+        paintPageDraw.closeDialog(view);
         brushDialog.dismiss();
     }
 }

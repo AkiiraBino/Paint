@@ -118,4 +118,9 @@ public class PaintPageDraw extends View{
         invalidate();
     }
 
+    public void closeDialog(View view)
+    {
+        invalidate();
+    }
+
 }
